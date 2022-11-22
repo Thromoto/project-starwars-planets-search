@@ -1,9 +1,14 @@
 import React from 'react';
 import './App.css';
+import Table from './component/Table';
 
 function App() {
   return (
-    <span>Hello, App!!</span>
+    <>
+      <h1>Star Wars</h1>
+      <h2>Planets</h2>
+      <Table />
+    </>
   );
 }
 
