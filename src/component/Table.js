@@ -20,11 +20,11 @@ export default function Table() {
     const bools = [];
     selectedFilter.forEach((filter) => {
       switch (filter.comparison) {
-      case 'menor que':
-        bools.push(linha[filter.column] < parseFloat(filter.value));
-        break;
       case 'maior que':
         bools.push(linha[filter.column] > parseFloat(filter.value));
+        break;
+      case 'menor que':
+        bools.push(linha[filter.column] < parseFloat(filter.value));
         break;
       case 'igual a':
         bools.push(linha[filter.column] === filter.value);
@@ -74,8 +74,8 @@ export default function Table() {
               (prev) => ({ ...prev, comparison: target.value }),
             ) }
           >
-            <option value="menor que">maior que</option>
-            <option value="maior que">menor que</option>
+            <option value="maior que">maior que</option>
+            <option value="menor que">menor que</option>
             <option value="igual a">igual a</option>
           </select>
         </label>
@@ -95,11 +95,11 @@ export default function Table() {
               ...prev,
               selected,
             ]));
-            setSelected({
-              column: '',
-              comparison: '',
-              value: 0,
-            });
+            // setSelected({
+            //   column: '',
+            //   comparison: '',
+            //   value: 0,
+            // });
           } }
         >
           Filtrar
