@@ -36,6 +36,8 @@ export default function Table() {
     return bools.every((el) => el);
   };
 
+  const tratar = (opcao) => !selectedFilter.find((filtro) => opcao === filtro.column);
+
   return (
     <main>
       <label htmlFor="name-filter">
@@ -54,15 +56,26 @@ export default function Table() {
           <select
             data-testid="column-filter"
             value={ selected.column }
-            onChange={ ({ target }) => setSelected(
-              (prev) => ({ ...prev, column: target.value }),
-            ) }
+            onChange={ (e) => setSelected({ ...selected, column: e.target.value }) }
           >
-            <option value="population">population</option>
+            {[
+              'population',
+              'orbital_period',
+              'diameter',
+              'rotation_period',
+              'surface_water',
+            ]
+              .filter(tratar)
+              .map((column) => (
+                <option value={ column } key={ column }>
+                  {column}
+                </option>
+              ))}
+            {/* <option value="population">population</option>
             <option value="orbital_period">orbital_period</option>
             <option value="diameter">diameter</option>
             <option value="rotation_period">rotation_period</option>
-            <option value="surface_water">surface_water</option>
+            <option value="surface_water">surface_water</option> */}
           </select>
         </label>
         <label htmlFor="comparison-filter">
@@ -70,9 +83,7 @@ export default function Table() {
           <select
             data-testid="comparison-filter"
             value={ selected.comparison }
-            onChange={ ({ target }) => setSelected(
-              (prev) => ({ ...prev, comparison: target.value }),
-            ) }
+            onChange={ (e) => setSelected({ ...selected, comparison: e.target.value }) }
           >
             <option value="maior que">maior que</option>
             <option value="menor que">menor que</option>
@@ -83,23 +94,18 @@ export default function Table() {
           type="number"
           data-testid="value-filter"
           value={ selected.value }
-          onChange={ ({ target }) => setSelected(
-            (prev) => ({ ...prev, value: target.value }),
-          ) }
+          onChange={ (e) => setSelected({ ...selected, value: e.target.value }) }
         />
         <button
           type="button"
           data-testid="button-filter"
           onClick={ () => {
-            setSelectedFilter((prev) => ([
-              ...prev,
-              selected,
-            ]));
-            // setSelected({
-            //   column: '',
-            //   comparison: '',
-            //   value: 0,
-            // });
+            setSelectedFilter([...selectedFilter, selected]);
+            setSelected({
+              column: 'population',
+              comparison: 'maior que',
+              value: 0,
+            });
           } }
         >
           Filtrar
