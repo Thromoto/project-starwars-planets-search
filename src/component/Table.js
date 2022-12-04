@@ -137,10 +137,27 @@ export default function Table() {
         >
           Ordenar
         </button>
+        <button
+          type="button"
+          data-testid="button-remove-filters"
+          onClick={ () => {
+            setSelectedFilter([]);
+            setSelected({
+              column: 'population',
+              comparison: 'maior que',
+              value: 0,
+            });
+          } }
+        >
+          Remover todas filtragens
+        </button>
       </div>
 
       {selectedFilter.map((filters, index) => (
-        <div key={ index }>
+        <div
+          key={ index }
+          data-testid="filter"
+        >
           <span>
             {filters.column}
             {' '}
@@ -148,6 +165,16 @@ export default function Table() {
             {' '}
             {filters.value}
           </span>
+          <button
+            type="button"
+            onClick={ () => {
+              const arr = [...selectedFilter];
+              arr.splice(index, 1);
+              setSelectedFilter(arr);
+            } }
+          >
+            Excluir
+          </button>
         </div>
       ))}
 
